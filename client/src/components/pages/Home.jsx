@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
 import { selectTweetList } from '../../features/tweet/selectors';
 import { connectWithStreamServer } from '../../features/tweet/slices';
 
 import Tweet from '../Tweet';
-import InputForm from '../InputForm';
+import SearchForm from '../SearchForm';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,17 +17,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home">
-      <h1>Assignment Project</h1>
-      <hr />
-      <InputForm />
+    <>
+      <Title>Assignment Project</Title>
+      <SearchForm />
       <div className="tweet-list">
         {tweetList.length === 0 ? (
           <div className="tweet-list-empty">Tweet List is empty :(</div>
         ) : (
-          tweetList.map((data) => <Tweet key={data.id} data={data} />)
+          tweetList.map((tweetInfo) => (
+            <Tweet key={tweetInfo.id} tweetInfo={tweetInfo} />
+          ))
         )}
       </div>
-    </div>
+    </>
   );
 }
+
+const Title = styled.h1`
+  font-size: 17px;
+  font-weight: bold;
+`;

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
 import { changeKeyword, initTweetStream } from '../features/tweet/slices';
 
-export default function InputForm() {
+export default function SearchForm() {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
 
@@ -17,17 +19,17 @@ export default function InputForm() {
   };
 
   return (
-    <form className="search-form">
-      <input
-        type="text"
-        name="search-keyword"
-        value={inputValue}
-        onChange={onInputChange}
-        className="search-input"
-      />
-      <button type="submit" onClick={onSearchClick} className="search-button">
+    <SearchFormInnerBox>
+      <SearchInputBox type="text" value={inputValue} onChange={onInputChange} />
+      <SearchSubmitButton type="submit" onClick={onSearchClick}>
         Search
-      </button>
-    </form>
+      </SearchSubmitButton>
+    </SearchFormInnerBox>
   );
 }
+
+const SearchFormInnerBox = styled.form``;
+
+const SearchInputBox = styled.input``;
+
+const SearchSubmitButton = styled.button``;
