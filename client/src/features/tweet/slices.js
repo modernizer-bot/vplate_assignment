@@ -3,6 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   tweetList: [],
   keyword: '',
+  hasTweets: false,
+  streamStatus: false,
 };
 
 const tweetSlice = createSlice({
@@ -10,10 +12,17 @@ const tweetSlice = createSlice({
   initialState,
   reducers: {
     connectWithStreamServer: () => {},
-    initTweetStream: () => {},
-    closeTweetStream: () => {},
+    initTweetStream: (state) => {
+      state.streamStatus = true;
+    },
+    closeTweetStream: (state) => {
+      state.streamStatus = false;
+    },
     addTweet: (state, { payload: tweet }) => {
       state.tweetList.push(tweet);
+      if (!state.hasTweets) {
+        state.hasTweets = true;
+      }
     },
     changeKeyword: (state, { payload: keyword }) => {
       state.keyword = keyword;

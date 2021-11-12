@@ -24,6 +24,7 @@ const store = configureStore({
 const createStateStore = () => {
   const createdStore = store;
   sagaMiddleware.run(tweetSaga);
+
   return createdStore;
 };
 
