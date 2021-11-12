@@ -29,55 +29,7 @@ const TWITTER_STREAM_URL = `https://api.twitter.com/2/tweets/search/stream${OPTI
 const TWITTER_STREAM_RULE_URL =
   "https://api.twitter.com/2/tweets/search/stream/rules";
 
-// const streamConnect = (socket, retryAttempt) => {
-//   const stream = needle.get(TWITTER_STREAM_URL, {
-//     headers: {
-//       Authorization: `Bearer ${TOKEN}`,
-//     },
-//     timeout: 20000,
-//   });
-//   let tweetCount = 0;
-//   stream
-//     .on("data", (data) => {
-//       try {
-//         if (tweetCount > 5) {
-//           console.log("tweetCount === 5");
-//           stream.request.abort();
-//         }
-//         const json = JSON.parse(data);
-//         socket.emit(tweet.new, json);
-//         console.log(json.data.id);
-//         // console.log("유저", json.includes.users);
-//         // console.log("미디어", json.includes.media);
-//         tweetCount++;
-
-//         // A successful connection resets retry count.
-//         retryAttempt = 0;
-//       } catch (e) {
-//         // Catches error in case of 401 unauthorized error status.
-//         if (data.status === 401) {
-//           console.log("1", data);
-//         } else if (
-//           data.detail ===
-//           "This stream is currently at the maximum allowed connection limit."
-//         ) {
-//           console.log("2", data.detail);
-//         }
-//       }
-//     })
-//     .on("err", (error) => {
-//       if (error.code !== "ECONNRESET") {
-//         console.log("3", error.code);
-//       } else {
-//         setTimeout(() => {
-//           console.warn("A connection error occurred. Reconnecting...");
-//           streamConnect(socket, ++retryAttempt);
-//         }, 2 ** retryAttempt);
-//       }
-//     });
-//   return stream;
-// };
-
+// Connect with Twitter Stream
 const streamTweets = (socket) => {
   const stream = needle.get(TWITTER_STREAM_URL, {
     headers: {
@@ -89,14 +41,19 @@ const streamTweets = (socket) => {
 
   stream.on("data", (data) => {
     try {
-      if (tweetCount > 5) {
+      if (tweetCount === 10) {
+        socket.emit("tweet.done");
         stream.request.abort();
-      } else {
-        const json = JSON.parse(data);
-        console.log(json.data.id);
-        socket.emit("tweet.new", json);
-        tweetCount++;
+        return;
       }
+
+      const json = JSON.parse(data);
+      const { id, public_metrics, text } = json.data;
+      const { users, media } = json.includes;
+      const tweetInfo = { id, public_metrics, text, media, author: users[0] };
+      console.log(json);
+      socket.emit("tweet.new", { tweetInfo });
+      tweetCount++;
     } catch (error) {}
   });
 

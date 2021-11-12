@@ -3,9 +3,29 @@
 import React from 'react';
 
 export default function Tweet({ data }) {
-  const onClick = () => {
-    console.log('TODO: Implementation to visit the tweet on Twitter.');
-  };
+  const tweetLink = `https://twitter.com/${data.author.username}/status/${data.id}`;
 
-  return <div className="tweet">Visit on Twitter..</div>;
+  return (
+    <a href={tweetLink}>
+      <div className="tweet-box">
+        <img
+          className="tweet-author-profile-image"
+          src={data.author.profile_image_url}
+          alt="author-profile"
+        />
+        {data.text}
+      </div>
+      {data.media && (
+        <img
+          className="tweet-media-content"
+          src={
+            data.media[0].preview_image_url
+              ? data.media[0].preview_image_url
+              : data.media[0].url
+          }
+          alt="media-content"
+        />
+      )}
+    </a>
+  );
 }
