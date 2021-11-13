@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import TwitterStreamHelper from './apis/twitter';
 import createTweetInfo from './utils/createTweetInfo';
+import { TWEETS_COUNT_AT_ONCE } from './constants/tweets';
 
 dotenv.config();
 
@@ -39,7 +40,7 @@ io.on('connection', (socket) => {
       let tweetCount = 0;
 
       stream.on('data', (data) => {
-        if (tweetCount === 10) {
+        if (tweetCount === TWEETS_COUNT_AT_ONCE) {
           socket.emit('stream.close');
           stream.request.abort();
           return;

@@ -75,10 +75,6 @@ const SearchInput = styled.input`
   border-radius: 40px;
 
   ${({ activated }) => !activated && 'background-color:#eff3f4'};
-
-  @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
-    text-align: center;
-  }
 `;
 
 const SearchInputBox = styled.div`

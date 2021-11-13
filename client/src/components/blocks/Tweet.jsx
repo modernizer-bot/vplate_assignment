@@ -9,7 +9,6 @@ import TweetInformation from './TweetInformation';
 
 function Tweet({ tweetInfo: { id, author, content, publicMetrics } }) {
   const tweetLink = `https://twitter.com/${author.username}/status/${id}`;
-  console.log('생성됨');
   return (
     <TweetInnerBox>
       <TweetLink href={tweetLink}>

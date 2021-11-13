@@ -23,10 +23,6 @@ const TitleLayout = styled.div`
   width: 100%;
   font-size: ${({ theme }) => theme.font.medium};
   font-weight: bold;
-
-  @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
-    justify-content: center;
-  }
 `;
 
 const TitleText = styled.div`
