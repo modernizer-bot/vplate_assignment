@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { BiMessageRounded } from 'react-icons/bi';
 import {
@@ -19,8 +20,8 @@ export default function TweetInformation({
   },
 }) {
   return (
-    <TweetInformationOuterBox>
-      <TweetInformationInnerBox>
+    <TweetInformationLayout>
+      <TweetInformationInner>
         <Count number={replyCount}>
           <BiMessageRounded size={24} />
         </Count>
@@ -33,18 +34,26 @@ export default function TweetInformation({
         <Icon>
           <AiOutlineUpload size={24} />
         </Icon>
-      </TweetInformationInnerBox>
-    </TweetInformationOuterBox>
+      </TweetInformationInner>
+    </TweetInformationLayout>
   );
 }
 
-const TweetInformationOuterBox = styled.div`
+const TweetInformationLayout = styled.div`
   ${center}
 `;
 
-const TweetInformationInnerBox = styled.div`
+const TweetInformationInner = styled.div`
   display: flex;
   justify-content: space-between;
   width: 90%;
   margin-top: 10px;
 `;
+
+TweetInformation.propTypes = {
+  publicMetrics: PropTypes.shape({
+    retweet_count: PropTypes.number.isRequired,
+    reply_count: PropTypes.number.isRequired,
+    like_count: PropTypes.number.isRequired,
+  }).isRequired,
+};

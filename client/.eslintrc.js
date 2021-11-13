@@ -20,7 +20,6 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 'off',
     'arrow-body-style': 'off',
     'consistent-return': 'off',
-    'react/prop-types': 'off',
     'react/function-component-definition': 'off',
     'object-curly-newline': 'off',
     'import/prefer-default-export': 'off',

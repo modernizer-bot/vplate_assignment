@@ -1,24 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { center } from '../../styles/mixin';
 
-export default function TweetContent({ mediaURL, text }) {
+export default function TweetContent({ content: { text, mediaUrl } }) {
   return (
-    <TweetContentInnerBox>
-      <TweetTextContentOuterBox>
+    <TweetContentLayout>
+      <TweetTextContentWrapper>
         <TweetTextContent>{text}</TweetTextContent>
-      </TweetTextContentOuterBox>
-      {mediaURL && (
-        <TweetMediaContentOuterBox>
-          <TweetMediaContent src={mediaURL} alt="media-content" />
-        </TweetMediaContentOuterBox>
+      </TweetTextContentWrapper>
+      {mediaUrl && (
+        <TweetMediaContentWrapper>
+          <TweetMediaContent src={mediaUrl} alt="media-content" />
+        </TweetMediaContentWrapper>
       )}
-    </TweetContentInnerBox>
+    </TweetContentLayout>
   );
 }
 
-const TweetMediaContentOuterBox = styled.div`
+const TweetMediaContentWrapper = styled.div`
   ${center}
   width: auto;
   height: auto;
@@ -37,11 +38,18 @@ const TweetTextContent = styled.p`
   word-wrap: break-word;
 `;
 
-const TweetTextContentOuterBox = styled.div`
+const TweetTextContentWrapper = styled.div`
   width: 92%;
   margin-top: 10px;
 `;
 
-const TweetContentInnerBox = styled.div`
+const TweetContentLayout = styled.div`
   ${center}
 `;
+
+TweetContent.propTypes = {
+  content: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    mediaUrl: PropTypes.string,
+  }).isRequired,
+};

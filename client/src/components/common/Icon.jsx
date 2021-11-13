@@ -1,20 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { center, fakeBorder } from '../../styles/mixin';
 
 export default function Icon({ children: icon }) {
   return (
-    <IconOuterBox>
-      <IconInnerBox>{icon}</IconInnerBox>
-    </IconOuterBox>
+    <IconLayout>
+      <IconWrapper>{icon}</IconWrapper>
+    </IconLayout>
   );
 }
 
-const IconOuterBox = styled.div`
+const IconLayout = styled.div`
   ${center}
   ${fakeBorder}
 `;
 
-const IconInnerBox = styled.div`
+const IconWrapper = styled.div`
   ${fakeBorder}
 `;
+
+Icon.propTypes = {
+  children: PropTypes.element.isRequired,
+};

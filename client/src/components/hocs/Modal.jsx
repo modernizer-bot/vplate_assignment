@@ -1,12 +1,14 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
+import Portal from './Portal';
+
 import { selectModalMessage } from '../../features/modal/selectors';
 import { closeModal } from '../../features/modal/slices';
 
-import { center, fullWidthAndHeight } from '../../styles/mixin';
-import Portal from './Portal';
+import { appear, center, fullWidthAndHeight } from '../../styles/mixin';
 
 export default function Modal({ children }) {
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ export default function Modal({ children }) {
   };
 
   return (
-    <ModalInnerBox>
+    <ModalWrapper>
       <Portal elementId="modal-root">
         <ModalOverlay onClick={handleForCloseModal} modalMessage={modalMessage}>
           <ModalBackground />
@@ -29,11 +31,11 @@ export default function Modal({ children }) {
         </ModalOverlay>
       </Portal>
       {children}
-    </ModalInnerBox>
+    </ModalWrapper>
   );
 }
 
-const ModalInnerBox = styled.div``;
+const ModalWrapper = styled.div``;
 
 const ModalOverlay = styled.div`
   display: ${({ modalMessage }) => (modalMessage === null ? 'none' : 'block')};
@@ -51,34 +53,12 @@ const ModalBackground = styled.div`
 const ModalMessageBox = styled.div`
   position: fixed;
   z-index: 3;
-  width: 650px;
+  width: ${({ theme }) => theme.size.deviceSize};
   height: 200px;
   margin: 200px auto;
   left: 0;
   right: 0;
-  animation: appear 0.8s forwards;
-
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes disappear {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-  }
+  animation: ${appear} 1s forwards;
 
   @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
     width: 100%;
@@ -101,3 +81,7 @@ const ModalText = styled.p`
   font-size: ${({ theme }) => theme.font.big};
   font-weight: bold;
 `;
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+};

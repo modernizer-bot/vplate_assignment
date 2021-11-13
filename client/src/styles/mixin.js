@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css, keyframes } from 'styled-components';
 
 export const center = css`
   display: grid;
@@ -12,4 +12,15 @@ export const fullWidthAndHeight = css`
 
 export const fakeBorder = css`
   border: 1px solid transparent;
+`;
+
+export const appear = keyframes`
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
 `;

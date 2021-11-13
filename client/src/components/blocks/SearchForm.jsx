@@ -33,45 +33,38 @@ export default function SearchForm() {
   };
 
   return (
-    <SearchFormOuterBox>
-      <SearchFormInnerBox>
-        <SearchInputOuterBox activated={hasFocus}>
-          <IconOuterBox>
-            <Icon>
-              <AiOutlineSearch
-                size={24}
-                color={hasFocus ? '#31a4f1' : 'black'}
-              />
-            </Icon>
-          </IconOuterBox>
-          <SearchInput
-            type="text"
-            placeholder="Search Keyword"
-            value={inputValue}
-            activated={hasFocus}
-            onKeyPress={onKeyPress}
-            onFocus={handleFocus}
-            onBlur={handleFocus}
-            onChange={onChange}
-          />
-        </SearchInputOuterBox>
-      </SearchFormInnerBox>
-    </SearchFormOuterBox>
+    <SearchFormLayout>
+      <SearchInputBox activated={hasFocus}>
+        <IconWrapper>
+          <Icon>
+            <AiOutlineSearch size={24} color={hasFocus ? '#31a4f1' : 'black'} />
+          </Icon>
+        </IconWrapper>
+        <SearchInput
+          type="text"
+          placeholder="Search Keyword"
+          value={inputValue}
+          activated={hasFocus}
+          onKeyPress={onKeyPress}
+          onFocus={handleFocus}
+          onBlur={handleFocus}
+          onChange={onChange}
+        />
+      </SearchInputBox>
+    </SearchFormLayout>
   );
 }
 
-const IconOuterBox = styled.div`
+const SearchFormLayout = styled.div`
   ${center}
-  margin-left: 20px;
-`;
-
-const SearchFormOuterBox = styled.div`
+  background-color: transparent;
   width: 100%;
   margin: 15px 0 15px 0;
 `;
 
-const SearchFormInnerBox = styled.div`
+const IconWrapper = styled.div`
   ${center}
+  margin-left: 20px;
 `;
 
 const SearchInput = styled.input`
@@ -88,7 +81,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchInputOuterBox = styled.div`
+const SearchInputBox = styled.div`
   display: flex;
   align-items: center;
   width: 95%;

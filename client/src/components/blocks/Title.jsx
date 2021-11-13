@@ -9,16 +9,16 @@ export default function Title() {
   const themeContext = useContext(ThemeContext);
 
   return (
-    <TitleInnerBox>
+    <TitleLayout>
       <Icon>
         <AiOutlineTwitter color={themeContext.color.twitter} size={40} />
       </Icon>
       <TitleText>Assignment Project</TitleText>
-    </TitleInnerBox>
+    </TitleLayout>
   );
 }
 
-const TitleInnerBox = styled.div`
+const TitleLayout = styled.div`
   display: flex;
   width: 100%;
   font-size: ${({ theme }) => theme.font.medium};

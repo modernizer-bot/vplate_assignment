@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { center, fakeBorder } from '../../styles/mixin';
 
@@ -6,27 +7,32 @@ import Icon from './Icon';
 
 export default function Count({ children, number }) {
   return (
-    <CountInnerBox>
+    <CountLayout>
       <Icon>{children}</Icon>
-      <NumberOuterBox>
-        <NumberInnerBox>{number}</NumberInnerBox>
-      </NumberOuterBox>
-    </CountInnerBox>
+      <CountValueWrapper>
+        <CountValue>{number}</CountValue>
+      </CountValueWrapper>
+    </CountLayout>
   );
 }
 
-const CountInnerBox = styled.div`
+const CountLayout = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const NumberOuterBox = styled.div`
+const CountValueWrapper = styled.div`
   ${center}
   ${fakeBorder}
   margin-left: 10px;
 `;
 
-const NumberInnerBox = styled.div`
+const CountValue = styled.div`
   ${fakeBorder}
   font-size: ${({ theme }) => theme.font.medium};
 `;
+
+Count.propTypes = {
+  children: PropTypes.element.isRequired,
+  number: PropTypes.number.isRequired,
+};

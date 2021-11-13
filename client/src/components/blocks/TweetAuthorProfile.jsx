@@ -1,35 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { center } from '../../styles/mixin';
 
 export default function TweetAuthorProfile({ author }) {
   return (
-    <TweetAuthorProfileOuterBox>
-      <TweetAuthorProfileInnerBox>
-        <TweetAuthorProfileImageOuterBox>
+    <TweetAuthorProfileLayout>
+      <TweetAuthorProfileInner>
+        <TweetAuthorProfileImageWrapper>
           <TweetAuthorProfileImage
             src={author.profile_image_url}
             alt="author-profile"
           />
-        </TweetAuthorProfileImageOuterBox>
-        <TweetAuthorNameOuterBox>
+        </TweetAuthorProfileImageWrapper>
+        <TweetAuthorNameWrapper>
           <TweetAuthorName>{author.name}</TweetAuthorName>
           <TweetAuthorUsername>{`@${author.username}`}</TweetAuthorUsername>
-        </TweetAuthorNameOuterBox>
-      </TweetAuthorProfileInnerBox>
-    </TweetAuthorProfileOuterBox>
+        </TweetAuthorNameWrapper>
+      </TweetAuthorProfileInner>
+    </TweetAuthorProfileLayout>
   );
 }
-const TweetAuthorProfileOuterBox = styled.div`
+const TweetAuthorProfileLayout = styled.div`
   ${center}
 `;
 
-const TweetAuthorProfileInnerBox = styled.div`
+const TweetAuthorProfileInner = styled.div`
   display: flex;
   width: 95%;
 `;
 
-const TweetAuthorNameOuterBox = styled.div`
+const TweetAuthorNameWrapper = styled.div`
   display: flex;
 
   @media screen and (max-width: 650px) {
@@ -53,7 +55,7 @@ const TweetAuthorUsername = styled.div`
   }
 `;
 
-const TweetAuthorProfileImageOuterBox = styled.div`
+const TweetAuthorProfileImageWrapper = styled.div`
   height: ${({ theme }) => theme.size.profileImageSize};
   width: ${({ theme }) => theme.size.profileImageSize};
 `;
@@ -61,3 +63,12 @@ const TweetAuthorProfileImageOuterBox = styled.div`
 const TweetAuthorProfileImage = styled.img`
   border-radius: 100%;
 `;
+
+TweetAuthorProfile.propTypes = {
+  author: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    profile_image_url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
+};

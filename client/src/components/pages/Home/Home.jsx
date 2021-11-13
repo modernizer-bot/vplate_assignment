@@ -8,7 +8,7 @@ import { center } from '../../../styles/mixin';
 
 export default function Home() {
   return (
-    <Layout>
+    <HomeLayout>
       <Header>
         <Title />
         <SearchForm />
@@ -16,11 +16,11 @@ export default function Home() {
       <Body>
         <TweetList />
       </Body>
-    </Layout>
+    </HomeLayout>
   );
 }
 
-const Layout = styled.div`
+const HomeLayout = styled.div`
   ${center}
 `;
 
