@@ -24,4 +24,13 @@ module.exports = {
     'object-curly-newline': 'off',
     'import/prefer-default-export': 'off',
   },
+  overrides: [
+    {
+      files: ['**/*.spec.js', '**/*.spec.jsx'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
+  ignorePatterns: ['jest.setup.js'],
 };
