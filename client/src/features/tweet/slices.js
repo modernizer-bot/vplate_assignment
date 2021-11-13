@@ -12,7 +12,7 @@ const tweetSlice = createSlice({
   initialState,
   reducers: {
     connectWithStreamServer: () => {},
-    initTweetStream: (state) => {
+    openTweetStream: (state) => {
       state.streamStatus = true;
     },
     closeTweetStream: (state) => {
@@ -33,7 +33,7 @@ const tweetSlice = createSlice({
 
 export const {
   connectWithStreamServer,
-  initTweetStream,
+  openTweetStream,
   closeTweetStream,
   addTweet,
   changeKeyword,

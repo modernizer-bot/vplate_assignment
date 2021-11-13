@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-const selectSelf = (state) => state;
+const selectSelf = (state) => state.tweet;
 
 export const selectTweetList = createSelector(
   selectSelf,

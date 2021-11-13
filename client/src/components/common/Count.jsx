@@ -28,4 +28,5 @@ const NumberOuterBox = styled.div`
 
 const NumberInnerBox = styled.div`
   ${fakeBorder}
+  font-size: ${({ theme }) => theme.font.medium};
 `;

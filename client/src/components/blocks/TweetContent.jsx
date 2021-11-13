@@ -19,18 +19,17 @@ export default function TweetContent({ mediaURL, text }) {
 }
 
 const TweetMediaContentOuterBox = styled.div`
+  ${center}
   width: auto;
   height: auto;
-  ${center}
 `;
 
 const TweetMediaContent = styled.img`
   width: 95%;
   height: auto;
-  max-width: 600px;
   margin-top: 15px;
-
   border-radius: 25px;
+  box-shadow: 1px 1px 1px #eff3f4;
   object-fit: contain;
 `;
 

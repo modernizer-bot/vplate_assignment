@@ -1,41 +1,28 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useCallback, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-import {
-  selectHasTweets,
-  selectStreamStatus,
-} from '../../features/tweet/selectors';
+
+import useLoadingText from '../../hooks/useLoadingText';
+import useIntersect from '../../hooks/useIntersect';
+import { center } from '../../styles/mixin';
 
 export default function TweetLoading() {
-  const streamStatus = useSelector(selectStreamStatus);
-  const trigger = useRef();
-
-  const onIntersect = ([entry]) => {
-    if (entry.isIntersecting) {
-      console.log('eeeee');
-    }
-  };
-
-  useEffect(() => {
-    if (streamStatus) return;
-    const target = trigger.current;
-
-    let observer;
-    if (target) {
-      observer = new IntersectionObserver(onIntersect, { threshold: 1 });
-      observer.observe(target);
-    }
-
-    return () => observer && observer.disconnect();
-  }, [streamStatus, trigger]);
+  const trigger = useIntersect();
+  const loadingText = useLoadingText();
 
   return (
-    <Loading ref={trigger}>
-      <div>TweetLoading</div>
-      <div>blahblah</div>
-    </Loading>
+    <TweetLoadingInnerBox ref={trigger}>
+      <LoadingText>{loadingText}</LoadingText>
+    </TweetLoadingInnerBox>
   );
 }
 
-const Loading = styled.div``;
+const TweetLoadingInnerBox = styled.div`
+  ${center}
+  margin: 20px auto 20px auto;
+`;
+
+const LoadingText = styled.p`
+  font-size: ${({ theme }) => theme.font.big};
+  font-weight: bold;
+`;

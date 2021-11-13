@@ -23,7 +23,7 @@ export default function Tweet({
 }
 
 const TweetInnerBox = styled.li`
-  width: 650px;
+  width: 100%;
   margin-top: 10px;
 `;
 

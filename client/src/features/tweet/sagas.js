@@ -1,18 +1,31 @@
-/* eslint-disable object-curly-newline */
+/* eslint-disable no-unused-vars */
 import { eventChannel } from '@redux-saga/core';
-import { take, call, select, fork, cancel, put } from 'redux-saga/effects';
+import {
+  take,
+  call,
+  select,
+  fork,
+  cancel,
+  put,
+  delay,
+  cancelled,
+} from 'redux-saga/effects';
 import { io } from 'socket.io-client';
-import { selectKeyword } from './selectors';
+
+import { TWEET_SERVER_URL } from '../../constant/tweet';
+import { openModal } from '../modal/slices';
+import { selectKeyword, selectTweetList } from './selectors';
 import {
   connectWithStreamServer,
-  addTweet,
-  initTweetStream,
+  openTweetStream,
   closeTweetStream,
+  addTweet,
   changeKeyword,
 } from './slices';
 
 const connect = () => {
-  const socket = io('http://localhost:5000');
+  console.log('test', TWEET_SERVER_URL);
+  const socket = io(TWEET_SERVER_URL);
   return new Promise((resolve) => {
     socket.on('connect', () => {
       resolve(socket);
@@ -26,7 +39,7 @@ function subscribe(socket) {
       emit({ type: addTweet, payload: tweetInfo });
     });
 
-    socket.on('tweet.done', () => {
+    socket.on('stream.close', () => {
       emit({ type: closeTweetStream.type });
     });
 
@@ -36,12 +49,31 @@ function subscribe(socket) {
   });
 }
 
-function* readStream(socket) {
-  const stream = yield call(subscribe, socket);
+function* watchNoResult(socket) {
+  const prevTweets = yield select(selectTweetList);
+  yield delay(15000);
 
-  while (true) {
-    const action = yield take(stream);
-    yield put(action);
+  const nextTweets = yield select(selectTweetList);
+
+  if (prevTweets.length === nextTweets.length) {
+    yield put({ type: openModal.type, payload: 'No Result' });
+    socket.emit('tweet.noResult');
+  }
+}
+
+function* watchStream(socket) {
+  const stream = yield call(subscribe, socket);
+  const watchNoResultTask = yield fork(watchNoResult, socket);
+
+  try {
+    while (true) {
+      const action = yield take(stream);
+      yield put(action);
+    }
+  } finally {
+    if (yield cancelled()) {
+      yield cancel(watchNoResultTask);
+    }
   }
 }
 
@@ -51,15 +83,13 @@ function* flow() {
   yield take(changeKeyword.type);
 
   while (true) {
-    yield take(initTweetStream.type);
+    yield take(openTweetStream.type);
     const keyword = yield select(selectKeyword);
-    console.log('keyword', keyword);
-    socket.emit('stream.init', { keyword });
-
-    const task = yield fork(readStream, socket);
+    socket.emit('stream.open', { keyword });
+    const watchStreamTask = yield fork(watchStream, socket);
 
     yield take(closeTweetStream.type);
-    yield cancel(task);
+    yield cancel(watchStreamTask);
   }
 }
 

@@ -1,8 +1,13 @@
-/* eslint-disable react/function-component-definition */
 import React from 'react';
+
+import Modal from './components/hocs/Modal';
 
 import Home from './components/pages/Home';
 
 export default function App() {
-  return <Home />;
+  return (
+    <Modal>
+      <Home />
+    </Modal>
+  );
 }

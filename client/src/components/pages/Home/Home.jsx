@@ -8,14 +8,40 @@ import { center } from '../../../styles/mixin';
 
 export default function Home() {
   return (
-    <Template>
-      <Title />
-      <SearchForm />
-      <TweetList />
-    </Template>
+    <Layout>
+      <Header>
+        <Title />
+        <SearchForm />
+      </Header>
+      <Body>
+        <TweetList />
+      </Body>
+    </Layout>
   );
 }
 
-const Template = styled.div`
+const Layout = styled.div`
   ${center}
+`;
+
+const Header = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0px;
+  width: ${({ theme }) => theme.size.deviceSize};
+  height: ${({ theme }) => theme.size.headerSize};
+  background-color: white;
+
+  @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
+    width: 100%;
+  }
+`;
+
+const Body = styled.div`
+  width: ${({ theme }) => theme.size.deviceSize};
+  margin-top: ${({ theme }) => theme.size.headerSize};
+
+  @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
+    width: 100%;
+  }
 `;

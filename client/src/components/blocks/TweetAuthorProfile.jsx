@@ -12,8 +12,10 @@ export default function TweetAuthorProfile({ author }) {
             alt="author-profile"
           />
         </TweetAuthorProfileImageOuterBox>
-        <TweetAuthorName>{author.name}</TweetAuthorName>
-        <TweetAuthorUsername>{`@${author.username}`}</TweetAuthorUsername>
+        <TweetAuthorNameOuterBox>
+          <TweetAuthorName>{author.name}</TweetAuthorName>
+          <TweetAuthorUsername>{`@${author.username}`}</TweetAuthorUsername>
+        </TweetAuthorNameOuterBox>
       </TweetAuthorProfileInnerBox>
     </TweetAuthorProfileOuterBox>
   );
@@ -27,21 +29,33 @@ const TweetAuthorProfileInnerBox = styled.div`
   width: 95%;
 `;
 
+const TweetAuthorNameOuterBox = styled.div`
+  display: flex;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+  }
+`;
+
 const TweetAuthorName = styled.div`
   margin-left: 10px;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.font.small};
   font-weight: bold;
 `;
 
 const TweetAuthorUsername = styled.div`
-  margin-left: 5px;
-  color: darkgray;
-  font-size: 15px;
+  margin-left: 10px;
+  color: ${({ theme }) => theme.color.darkGray};
+  font-size: ${({ theme }) => theme.font.small};
+
+  @media screen and (max-width: 650px) {
+    margin: 5px auto auto 5px;
+  }
 `;
 
 const TweetAuthorProfileImageOuterBox = styled.div`
-  height: 48px;
-  width: 48px;
+  height: ${({ theme }) => theme.size.profileImageSize};
+  width: ${({ theme }) => theme.size.profileImageSize};
 `;
 
 const TweetAuthorProfileImage = styled.img`

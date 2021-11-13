@@ -6,6 +6,7 @@ import {
   selectStreamStatus,
   selectTweetList,
 } from '../../features/tweet/selectors';
+import { center, fullWidthAndHeight } from '../../styles/mixin';
 import Tweet from './Tweet';
 import TweetLoading from './TweetLoading';
 
@@ -14,7 +15,11 @@ export default function TweetList() {
   const streamStatus = useSelector(selectStreamStatus);
 
   if (tweetList.length === 0 && !streamStatus) {
-    return <EmptyTweetList>Tweet List is empty :(</EmptyTweetList>;
+    return (
+      <EmptyTweetList>
+        <EmptyTweetListText>Tweet List is empty :(</EmptyTweetListText>
+      </EmptyTweetList>
+    );
   }
 
   return (
@@ -27,6 +32,17 @@ export default function TweetList() {
   );
 }
 
-const TweetListInnerBox = styled.ul``;
+const TweetListInnerBox = styled.ul`
+  ${fullWidthAndHeight}
+`;
 
-const EmptyTweetList = styled.div``;
+const EmptyTweetList = styled.div`
+  ${center}
+  height: 100%;
+  margin-top: 50px;
+`;
+
+const EmptyTweetListText = styled.p`
+  font-size: ${({ theme }) => theme.font.big};
+  font-weight: bold;
+`;

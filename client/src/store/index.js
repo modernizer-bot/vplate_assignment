@@ -3,13 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
-import tweetReducer from '../features/tweet/slices';
+import rootReducer from './rootReducer';
 import tweetSaga from '../features/tweet/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: tweetReducer,
+  reducer: rootReducer,
   // prettier-ignore
   middleware: (getDefaultMiddleware) => (process.env.REACT_APP_NODE_ENV !== 'production'
     ? getDefaultMiddleware({

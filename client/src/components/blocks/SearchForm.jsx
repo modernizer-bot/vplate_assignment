@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { changeKeyword, initTweetStream } from '../../features/tweet/slices';
+import { changeKeyword, openTweetStream } from '../../features/tweet/slices';
 import { fakeBorder, center } from '../../styles/mixin';
 import Icon from '../common/Icon';
 
@@ -19,7 +19,7 @@ export default function SearchForm() {
 
   const handleSearch = () => {
     dispatch(changeKeyword(inputValue));
-    dispatch(initTweetStream());
+    dispatch(openTweetStream());
   };
 
   const onKeyPress = (event) => {
@@ -66,7 +66,7 @@ const IconOuterBox = styled.div`
 `;
 
 const SearchFormOuterBox = styled.div`
-  width: 650px;
+  width: 100%;
   margin: 15px 0 15px 0;
 `;
 
@@ -82,6 +82,10 @@ const SearchInput = styled.input`
   border-radius: 40px;
 
   ${({ activated }) => !activated && 'background-color:#eff3f4'};
+
+  @media screen and (max-width: ${({ theme }) => theme.size.deviceSize}) {
+    text-align: center;
+  }
 `;
 
 const SearchInputOuterBox = styled.div`

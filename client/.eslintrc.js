@@ -23,5 +23,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/function-component-definition': 'off',
     'object-curly-newline': 'off',
+    'import/prefer-default-export': 'off',
   },
 };
