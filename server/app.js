@@ -1,13 +1,16 @@
+/* eslint-disable no-use-before-define */
 import http from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
-import needle from 'needle';
 import dotenv from 'dotenv';
+
+import TwitterStreamHelper from './apis/twitter';
+import createTweetInfo from './utils/createTweetInfo';
 
 dotenv.config();
 
-const TOKEN = process.env.TWITTER_BEARER_TOKEN;
 const PORT = process.env.PORT || 5000;
+const TOKEN = process.env.TWITTER_BEARER_TOKEN;
 
 const app = express();
 
@@ -22,76 +25,63 @@ app.get('/', (req, res) => {
   res.json({ status: true });
 });
 
-const OPTIONS =
-  '?tweet.fields=public_metrics&user.fields=id,profile_image_url&expansions=author_id,attachments.media_keys&media.fields=preview_image_url,url';
+const streamHelper = new TwitterStreamHelper(TOKEN);
+const { connectStream, getStreamRules, editStreamRules } = streamHelper;
 
-const TWITTER_STREAM_URL = `https://api.twitter.com/2/tweets/search/stream${OPTIONS}`;
-const TWITTER_STREAM_RULE_URL =
-  'https://api.twitter.com/2/tweets/search/stream/rules';
+io.on('connection', (socket) => {
+  console.log(`${socket.id} is connected`);
 
-// Connect with Twitter Stream
-const streamTweets = (socket) => {
-  const stream = needle.get(TWITTER_STREAM_URL, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
-
-  let tweetCount = 0;
-
-  stream.on('data', (data) => {
+  socket.on('stream.open', async ({ keyword }) => {
     try {
-      if (tweetCount === 10) {
+      await streamRuleSetting(keyword);
+      const stream = connectStream();
+
+      let tweetCount = 0;
+
+      stream.on('data', (data) => {
+        if (tweetCount === 10) {
+          socket.emit('stream.close');
+          stream.request.abort();
+          return;
+        }
+
+        const tweetInfo = createTweetInfo(data);
+
+        socket.emit('tweet.new', { tweetInfo });
+        tweetCount += 1;
+      });
+
+      socket.on('tweet.noResult', () => {
         socket.emit('stream.close');
         stream.request.abort();
-        return;
-      }
+      });
 
-      const json = JSON.parse(data);
-      console.log('json', json);
+      let timeout = 0;
 
-      const { id, text, public_metrics: publicMetrics } = json.data;
-      const { users, media } = json.includes;
-
-      delete publicMetrics.quote_count;
-
-      console.log('트윗 발견');
-      const tweetInfo = {
-        id,
-        publicMetrics,
-        content: {
-          text,
-        },
-        author: users[0],
-      };
-
-      if (media) {
-        tweetInfo.content.mediaUrl = media[0].preview_image_url
-          ? media[0].preview_image_url
-          : media[0].url;
-      }
-
-      socket.emit('tweet.new', { tweetInfo });
-      tweetCount += 1;
+      stream.on('timeout', () => {
+        // Reconnect on error
+        console.warn('A connection error occurred. Reconnecting…');
+        setTimeout(() => {
+          timeout += 1;
+          connectStream();
+        }, 2 ** timeout);
+        connectStream();
+      });
     } catch (err) {
       console.log(err);
     }
   });
+});
 
-  return stream;
-};
+server.listen(PORT, () => `Listening on port ${PORT}`);
 
-// Get stream rules
-const getRules = async () => {
-  const response = await needle('get', TWITTER_STREAM_RULE_URL, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
+// ** Function Declaration **
 
-  // console.log(response.body);
+async function getRules() {
+  const response = await getStreamRules();
+
   return response.body;
-};
+}
 
 // Set stream rules
 const setRules = async (rules) => {
@@ -99,16 +89,11 @@ const setRules = async (rules) => {
     add: rules,
   };
 
-  await needle('post', TWITTER_STREAM_RULE_URL, data, {
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
+  await editStreamRules(data);
 };
 
 // Delete stream rules
-const deleteRules = async (rules) => {
+async function deleteRules(rules) {
   if (!Array.isArray(rules.data)) {
     return null;
   }
@@ -121,51 +106,16 @@ const deleteRules = async (rules) => {
     },
   };
 
-  await needle('post', TWITTER_STREAM_RULE_URL, data, {
-    headers: {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${TOKEN}`,
-    },
-  });
-};
+  await editStreamRules(data);
+}
 
-io.on('connection', (socket) => {
-  console.log(`${socket.id} is connected`);
+async function streamRuleSetting(keyword) {
+  // Get all stream rules
+  const prevRules = await getRules();
+  // Delete all stream rules
+  await deleteRules(prevRules);
 
-  socket.on('stream.open', async ({ keyword }) => {
-    try {
-      // Get all stream rules
-      const currentRules = await getRules();
-      // Delete all stream rules
-      await deleteRules(currentRules);
-      console.log('keyword', keyword);
-      const rules = [{ value: keyword }];
-      // Set rules based on array above
-      await setRules(rules);
-    } catch (err) {
-      console.log('4', err);
-    }
-
-    console.log('filteredStream connect');
-    const filteredStream = streamTweets(io);
-
-    socket.on('tweet.noResult', () => {
-      socket.emit('stream.close');
-      console.log('결과없어서 강제 종료');
-      filteredStream.request.abort();
-    });
-
-    let timeout = 0;
-    filteredStream.on('timeout', () => {
-      // Reconnect on error
-      console.warn('A connection error occurred. Reconnecting…');
-      setTimeout(() => {
-        timeout += 1;
-        streamTweets(io);
-      }, 2 ** timeout);
-      streamTweets(io);
-    });
-  });
-});
-
-server.listen(PORT, () => `Listening on port ${PORT}`);
+  const nextRules = [{ value: keyword }];
+  // Set rules based on array above
+  await setRules(nextRules);
+}
