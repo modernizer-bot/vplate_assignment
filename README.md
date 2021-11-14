@@ -8,9 +8,17 @@
 
 <br/>
 
-[![DEMO](http://img.youtube.com/vi/JbMdnii8pOE/0.jpg)](https://youtu.be/JbMdnii8pOE=0s)
+<p align="center">
+    <a href='https://youtu.be/JbMdnii8pOE=0s'>
+       <img src='http://img.youtube.com/vi/JbMdnii8pOE/0.jpg' alt='youtube-thumbnails'>
+        <br/>
+        <br/>
+        데모 영상 링크
+    </a>
+<p/>
 
 <br/>
+
 
 ## TECH STACK
 
