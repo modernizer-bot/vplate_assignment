@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -11,8 +11,8 @@ import { openTweetStream } from '../../features/tweet/slices';
 
 export default function TweetLoading() {
   const dispatch = useDispatch();
-
-  const trigger = useIntersect(() => dispatch(openTweetStream()));
+  const trigger = useRef();
+  useIntersect(trigger, () => dispatch(openTweetStream()));
   const loadingText = useLoadingText();
 
   return (

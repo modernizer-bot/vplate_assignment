@@ -1,11 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectStreamStatus } from '../features/tweet/selectors';
 
-export default function useIntersect(callback) {
+export default function useIntersect(trigger, callback) {
   const streamStatus = useSelector(selectStreamStatus);
-  const trigger = useRef();
 
   const onIntersect = ([entry]) => {
     if (entry.isIntersecting) {

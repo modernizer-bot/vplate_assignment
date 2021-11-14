@@ -11,13 +11,10 @@ const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
   reducer: rootReducer,
   // prettier-ignore
-  middleware: (getDefaultMiddleware) => (process.env.REACT_APP_NODE_ENV !== 'production'
-    ? getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(sagaMiddleware).concat(logger)
-    : getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(sagaMiddleware)),
+  middleware: (getDefaultMiddleware) => (getDefaultMiddleware({
+    serializableCheck: false,
+  }).concat(sagaMiddleware).concat(logger)
+  ),
   devTools: process.env.REACT_APP_NODE_ENV !== 'production',
 });
 

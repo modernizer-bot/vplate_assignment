@@ -23,8 +23,7 @@ import {
   changeKeyword,
 } from './slices';
 
-const connect = () => {
-  console.log('test', TWEET_SERVER_URL);
+export const connect = () => {
   const socket = io(TWEET_SERVER_URL);
   return new Promise((resolve) => {
     socket.on('connect', () => {

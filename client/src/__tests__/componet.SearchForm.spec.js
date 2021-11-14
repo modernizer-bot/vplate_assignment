@@ -4,18 +4,22 @@ import { ThemeProvider } from 'styled-components';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 
-import createStore from '../store';
-
 import theme from '../styles/theme';
 import SearchForm from '../components/blocks/SearchForm';
 
-describe('Loading component test', () => {
+describe('SearchForm test', () => {
   const mockStore = configureStore();
   let store;
   let component;
 
   beforeEach(() => {
-    store = mockStore(createStore().getState());
+    const initialState = {
+      tweet: {
+        keyword: '',
+      },
+    };
+
+    store = mockStore(initialState);
 
     store.dispatch = jest.fn();
 
@@ -28,20 +32,31 @@ describe('Loading component test', () => {
     );
   });
 
-  it('renders correctly', () => {
+  it('feature test', () => {
+    const keyword = 'TEST';
+
+    renderer.act(() => {
+      component.root.findByType('input').props.onFocus();
+    });
+
     renderer.act(() => {
       component.root
         .findByType('input')
-        .props.onChange({ target: { value: 'test keyword' } });
+        .props.onChange({ target: { value: keyword } });
     });
 
-    console.log(component.root.findByType('input').props);
+    // Input Any Key
+    renderer.act(() => {
+      component.root.findByType('input').props.onKeyPress({ key: 'Alt' });
+    });
 
+    // Input Enter Key
     renderer.act(() => {
       component.root.findByType('input').props.onKeyPress({ key: 'Enter' });
     });
 
+    expect(component.root.findByType('input').props.value).toBe(keyword);
+
     expect(store.dispatch).toHaveBeenCalledTimes(2);
-    console.log(store.getState());
   });
 });
