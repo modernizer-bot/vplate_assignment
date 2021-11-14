@@ -4,8 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 
-import theme from '../styles/theme';
-import SearchForm from '../components/blocks/SearchForm';
+import theme from '../../styles/theme';
+import SearchForm from '../../components/blocks/SearchForm';
 
 describe('SearchForm test', () => {
   const mockStore = configureStore();

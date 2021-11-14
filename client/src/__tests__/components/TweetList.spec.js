@@ -4,8 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 
-import theme from '../styles/theme';
-import TweetList from '../components/blocks/TweetList';
+import theme from '../../styles/theme';
+import TweetList from '../../components/blocks/TweetList';
 
 describe('TweetList test', () => {
   const mockStore = configureStore();

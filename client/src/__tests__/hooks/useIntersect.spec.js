@@ -1,6 +1,6 @@
 import * as redux from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
-import useIntersect from '../hooks/useIntersect';
+import useIntersect from '../../hooks/useIntersect';
 
 describe('useIntersect Hook Test', () => {
   let spyOnUseSelector;

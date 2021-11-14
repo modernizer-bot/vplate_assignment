@@ -1,4 +1,4 @@
-import reducer, { openModal, closeModal } from '../features/modal/slices';
+import reducer, { openModal, closeModal } from '../../features/modal/slices';
 
 describe('tweetReducer test', () => {
   let initialState;

@@ -4,8 +4,8 @@ import {
   LOADING_DEFAULT_TEXT,
   LOADING_DEFAULT_COUNT,
   LOADING_DEFAULT_INTERVAL,
-} from '../constant/loading';
-import useLoadingText from '../hooks/useLoadingText';
+} from '../../constant/loading';
+import useLoadingText from '../../hooks/useLoadingText';
 
 describe('Test useLoadingText hook', () => {
   beforeEach(() => {

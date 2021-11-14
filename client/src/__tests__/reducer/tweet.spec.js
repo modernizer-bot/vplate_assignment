@@ -4,7 +4,7 @@ import reducer, {
   closeTweetStream,
   addTweet,
   changeKeyword,
-} from '../features/tweet/slices';
+} from '../../features/tweet/slices';
 
 describe('tweetReducer test', () => {
   let initialState;
@@ -47,17 +47,6 @@ describe('tweetReducer test', () => {
       streamStatus: false,
     });
   });
-
-  // it('test addTweet when has no Tweets', () => {
-  //   const test = 'test';
-
-  //   expect(reducer(initialState, addTweet(test))).toEqual({
-  //     tweetList: [test],
-  //     keyword: '',
-  //     hasTweets: true,
-  //     streamStatus: false,
-  //   });
-  // });
 
   it('test changeKeyword', () => {
     const test = 'test';

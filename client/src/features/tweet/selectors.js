@@ -12,11 +12,6 @@ export const selectKeyword = createSelector(
   (state) => state.keyword,
 );
 
-export const selectHasTweets = createSelector(
-  selectSelf,
-  (state) => state.hasTweets,
-);
-
 export const selectStreamStatus = createSelector(
   selectSelf,
   (state) => state.streamStatus,
