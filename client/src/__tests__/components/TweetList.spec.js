@@ -11,7 +11,7 @@ describe('TweetList test', () => {
   const mockStore = configureStore();
 
   it('Tweet & TweetLoading render test', () => {
-    const mockTweet = {
+    const sampleTweet = {
       author: {
         id: '1383672481316102153',
         name: '일납 고등학교장 오사',
@@ -30,7 +30,7 @@ describe('TweetList test', () => {
 
     const initialState = {
       tweet: {
-        tweetList: [mockTweet],
+        tweetList: [sampleTweet],
         streamStatus: false,
       },
     };

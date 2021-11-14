@@ -76,7 +76,7 @@ function* watchStream(socket) {
   }
 }
 
-function* flow() {
+export function* flow() {
   yield take(connectWithStreamServer.type);
   const socket = yield call(() => connect());
   yield take(changeKeyword.type);

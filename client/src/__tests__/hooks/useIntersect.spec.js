@@ -5,6 +5,12 @@ import useIntersect from '../../hooks/useIntersect';
 describe('useIntersect Hook Test', () => {
   let spyOnUseSelector;
 
+  global.IntersectionObserver = {
+    observe: null,
+    disconnect: null,
+    unobserve: null,
+  };
+
   beforeEach(() => {
     spyOnUseSelector = jest.spyOn(redux, 'useSelector');
     spyOnUseSelector.mockReturnValue(false);
@@ -14,7 +20,7 @@ describe('useIntersect Hook Test', () => {
     jest.restoreAllMocks();
   });
 
-  it('ob test', () => {
+  it('observed test', () => {
     const mockFn = jest.fn();
     const mockRef = { current: true };
 
