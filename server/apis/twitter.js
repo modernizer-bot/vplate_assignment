@@ -1,5 +1,5 @@
 import needle from 'needle';
-import { TWITTER_STREAM_URL, TWITTER_STREAM_RULE_URL } from '../constants/url';
+import { TWITTER_STREAM_URL, TWITTER_STREAM_RULE_URL } from '../constants/url.js';
 
 export default function TwitterStreamHelper(token) {
   this.token = token;

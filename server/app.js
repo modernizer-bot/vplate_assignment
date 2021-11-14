@@ -3,9 +3,9 @@ import express from 'express';
 import socketIo from 'socket.io';
 import dotenv from 'dotenv';
 
-import TwitterStreamHelper from './apis/twitter';
-import createTweetInfo from './utils/createTweetInfo';
-import { TWEETS_COUNT_AT_ONCE } from './constants/tweets';
+import TwitterStreamHelper from './apis/twitter.js';
+import createTweetInfo from './utils/createTweetInfo.js';
+import { TWEETS_COUNT_AT_ONCE } from './constants/tweets.js';
 
 dotenv.config();
 

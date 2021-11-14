@@ -4,7 +4,7 @@ import {
   LOADING_DEFAULT_TEXT,
   LOADING_DEFAULT_COUNT,
   LOADING_DEFAULT_INTERVAL,
-} from '../constant/loading';
+} from '../constant/loading.js';
 
 export default function useLoadingText(
   text = LOADING_DEFAULT_TEXT,

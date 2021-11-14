@@ -12,17 +12,17 @@ import {
 } from 'redux-saga/effects';
 import { io } from 'socket.io-client';
 
-import { openModal } from '../modal/slices';
-import { selectKeyword, selectTweetList } from './selectors';
+import { openModal } from '../modal/slices.js';
+import { selectKeyword, selectTweetList } from './selectors.js';
 import {
   connectWithStreamServer,
   openTweetStream,
   closeTweetStream,
   addTweet,
   changeKeyword,
-} from './slices';
+} from './slices.js';
 
-import { TWEET_SERVER_URL, TWEET_STREAM_TIMEOUT } from '../../constant/tweet';
+import { TWEET_SERVER_URL, TWEET_STREAM_TIMEOUT } from '../../constant/tweet.js';
 
 export const connect = () => {
   const socket = io(TWEET_SERVER_URL);

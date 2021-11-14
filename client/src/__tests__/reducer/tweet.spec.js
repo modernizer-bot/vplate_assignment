@@ -4,7 +4,7 @@ import reducer, {
   closeTweetStream,
   addTweet,
   changeKeyword,
-} from '../../features/tweet/slices';
+} from '../../features/tweet/slices.js';
 
 describe('tweetReducer test', () => {
   let initialState;

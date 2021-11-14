@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectStreamStatus } from '../features/tweet/selectors';
+import { selectStreamStatus } from '../features/tweet/selectors.js';
 
 export default function useIntersect(trigger, callback) {
   const streamStatus = useSelector(selectStreamStatus);

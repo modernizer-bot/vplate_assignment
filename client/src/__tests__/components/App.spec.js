@@ -3,9 +3,9 @@ import * as redux from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import renderer from 'react-test-renderer';
 
-import App from '../../App';
-import createStore from '../../store';
-import theme from '../../styles/theme';
+import App from '../../App.js';
+import createStore from '../../store.js';
+import theme from '../../styles/theme.js';
 
 describe('App component test', () => {
   let component;

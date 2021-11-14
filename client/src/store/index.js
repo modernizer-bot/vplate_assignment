@@ -3,8 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
-import rootReducer from './rootReducer';
-import tweetSaga from '../features/tweet/sagas';
+import rootReducer from './rootReducer.js';
+import tweetSaga from '../features/tweet/sagas.js';
 
 const sagaMiddleware = createSagaMiddleware();
 

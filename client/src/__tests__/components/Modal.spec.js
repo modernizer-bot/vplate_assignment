@@ -4,8 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 
-import Modal from '../../components/hocs/Modal';
-import theme from '../../styles/theme';
+import Modal from '../../components/hocs/Modal.jsx';
+import theme from '../../styles/theme.js';
 
 describe('Modal component test', () => {
   const spySelector = jest.spyOn(redux, 'useSelector');

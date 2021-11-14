@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import dotenv from 'dotenv';
 
-import App from './App';
-import createStore from './store';
-import theme from './styles/theme';
-import GlobalStyle from './styles/globalStyle';
+import App from './App.js';
+import createStore from './store.js';
+import theme from './styles/theme.js';
+import GlobalStyle from './styles/globalStyle.js';
 
 dotenv.config();
 
