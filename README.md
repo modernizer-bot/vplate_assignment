@@ -1,5 +1,11 @@
 # THE V PLANET ASSIGNMENT
 
+<br/>
+
+<p align="center">
+    <img src='./preview.png' alt='preview'>
+<p align="center"/>
+
 ## SUMMARY
 
 <br/>
@@ -18,7 +24,6 @@
 <p/>
 
 <br/>
-
 
 ## TECH STACK
 
