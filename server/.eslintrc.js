@@ -11,5 +11,6 @@ module.exports = {
   rules: {
     'consistent-return': 'off',
     'operator-linebreak': 'off',
+    'no-use-before-define': 'off',
   },
 };

@@ -8,9 +8,10 @@ import {
   AiOutlineUpload,
 } from 'react-icons/ai';
 
-import { center } from '../../styles/mixin';
 import Count from '../common/Count';
 import Icon from '../common/Icon';
+
+import { center } from '../../styles/mixin';
 
 export default function TweetInformation({
   publicMetrics: {

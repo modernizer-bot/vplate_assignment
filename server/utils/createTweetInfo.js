@@ -1,11 +1,12 @@
 const createTweetInfo = (data) => {
-  let mediaUrl;
   const json = JSON.parse(data);
 
   const { id, text, public_metrics: publicMetrics } = json.data;
   const { users, media } = json.includes;
 
   delete publicMetrics.quote_count;
+
+  let mediaUrl;
 
   if (media) {
     mediaUrl = media[0].preview_image_url

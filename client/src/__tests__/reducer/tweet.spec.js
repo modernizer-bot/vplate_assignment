@@ -22,13 +22,13 @@ describe('tweetReducer test', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('test connectWithStreamServer', () => {
+  it('test action connectWithStreamServer', () => {
     expect(reducer(initialState, connectWithStreamServer())).toEqual(
       initialState,
     );
   });
 
-  it('test addTweet when has Tweets', () => {
+  it('test action addTweet when has Tweets', () => {
     const test = 'test';
 
     expect(reducer(initialState, addTweet(test))).toEqual({
@@ -48,7 +48,7 @@ describe('tweetReducer test', () => {
     });
   });
 
-  it('test changeKeyword', () => {
+  it('test action changeKeyword', () => {
     const test = 'test';
     expect(reducer(initialState, changeKeyword(test))).toEqual({
       tweetList: [],
@@ -58,7 +58,7 @@ describe('tweetReducer test', () => {
     });
   });
 
-  it('test openTweetStream & closeTweetStream', () => {
+  it('test actions openTweetStream & closeTweetStream', () => {
     expect(reducer(initialState, openTweetStream())).toEqual({
       tweetList: [],
       keyword: '',

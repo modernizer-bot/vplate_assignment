@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import theme from '../../styles/theme';
 import SearchForm from '../../components/blocks/SearchForm';
 
-describe('SearchForm test', () => {
+describe('SearchForm component test', () => {
   const mockStore = configureStore();
   let store;
   let component;
@@ -32,7 +32,7 @@ describe('SearchForm test', () => {
     );
   });
 
-  it('feature test', () => {
+  it('test searchForm feature', () => {
     const keyword = 'TEST';
 
     renderer.act(() => {

@@ -7,9 +7,10 @@ import {
   selectTweetList,
 } from '../../features/tweet/selectors';
 
-import { center } from '../../styles/mixin';
 import Tweet from './Tweet';
 import TweetLoading from './TweetLoading';
+
+import { center } from '../../styles/mixin';
 
 export default function TweetList() {
   const tweetList = useSelector(selectTweetList);

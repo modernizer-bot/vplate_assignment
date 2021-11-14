@@ -2,7 +2,7 @@ import * as redux from 'react-redux';
 import { renderHook } from '@testing-library/react-hooks';
 import useIntersect from '../../hooks/useIntersect';
 
-describe('useIntersect Hook Test', () => {
+describe('useIntersect hook test', () => {
   let spyOnUseSelector;
 
   global.IntersectionObserver = {
@@ -20,11 +20,13 @@ describe('useIntersect Hook Test', () => {
     jest.restoreAllMocks();
   });
 
-  it('observed test', () => {
+  it('test observing feature', () => {
     const mockFn = jest.fn();
     const mockRef = { current: true };
 
     renderHook(() => useIntersect(mockRef, mockFn));
     expect(spyOnUseSelector).toBeCalledTimes(1);
   });
+
+  // couldn't test intersected state
 });

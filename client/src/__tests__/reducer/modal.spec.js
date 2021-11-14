@@ -1,6 +1,6 @@
 import reducer, { openModal, closeModal } from '../../features/modal/slices';
 
-describe('tweetReducer test', () => {
+describe('Modal reducer test', () => {
   let initialState;
   beforeEach(() => {
     initialState = {
@@ -12,7 +12,7 @@ describe('tweetReducer test', () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it('test openModal & closeModal', () => {
+  it('test actions openModal & closeModal', () => {
     const open = 'OPEN';
 
     expect(reducer(initialState, openModal(open))).toEqual({

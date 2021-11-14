@@ -7,10 +7,10 @@ import renderer from 'react-test-renderer';
 import theme from '../../styles/theme';
 import TweetList from '../../components/blocks/TweetList';
 
-describe('TweetList test', () => {
+describe('TweetList component test', () => {
   const mockStore = configureStore();
 
-  it('Tweet & TweetLoading render test', () => {
+  it('test tweetList feature render ', () => {
     const sampleTweet = {
       author: {
         id: '1383672481316102153',

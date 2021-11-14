@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import http from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
@@ -43,6 +42,7 @@ io.on('connection', (socket) => {
         if (tweetCount === TWEETS_COUNT_AT_ONCE) {
           socket.emit('stream.close');
           stream.request.abort();
+
           return;
         }
 

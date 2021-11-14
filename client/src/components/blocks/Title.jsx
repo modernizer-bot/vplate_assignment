@@ -3,6 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import { AiOutlineTwitter } from 'react-icons/ai';
 
 import Icon from '../common/Icon';
+
 import { center } from '../../styles/mixin';
 
 export default function Title() {

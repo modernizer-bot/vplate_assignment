@@ -3,9 +3,11 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { changeKeyword, openTweetStream } from '../../features/tweet/slices';
-import { fakeBorder, center } from '../../styles/mixin';
 import Icon from '../common/Icon';
+
+import { changeKeyword, openTweetStream } from '../../features/tweet/slices';
+
+import { fakeBorder, center } from '../../styles/mixin';
 
 export default function SearchForm() {
   const dispatch = useDispatch();

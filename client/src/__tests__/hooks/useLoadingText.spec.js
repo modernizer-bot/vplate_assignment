@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { renderHook, act } from '@testing-library/react-hooks';
 import {
   LOADING_DEFAULT_TEXT,
@@ -7,7 +6,7 @@ import {
 } from '../../constant/loading';
 import useLoadingText from '../../hooks/useLoadingText';
 
-describe('Test useLoadingText hook', () => {
+describe('useLoadingText hook test', () => {
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -16,7 +15,7 @@ describe('Test useLoadingText hook', () => {
     jest.clearAllTimers();
   });
 
-  it('test with default value', async () => {
+  it('test making loadingText with default value', async () => {
     const { result } = renderHook(() => useLoadingText());
 
     act(() => {
@@ -32,7 +31,7 @@ describe('Test useLoadingText hook', () => {
     });
   });
 
-  it('test with parameters', async () => {
+  it('test making loadingText with parameters', async () => {
     const text = (Math.random() + 1).toString(36).substring(7);
     const count = parseInt(Math.random() * 100, 10);
     const interval = parseInt(Math.random() * 1000, 10);

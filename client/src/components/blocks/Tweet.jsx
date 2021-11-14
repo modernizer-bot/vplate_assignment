@@ -2,13 +2,15 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { fullWidthAndHeight } from '../../styles/mixin';
 import TweetAuthorProfile from './TweetAuthorProfile';
 import TweetContent from './TweetContent';
 import TweetInformation from './TweetInformation';
 
+import { fullWidthAndHeight } from '../../styles/mixin';
+
 function Tweet({ tweetInfo: { id, author, content, publicMetrics } }) {
   const tweetLink = `https://twitter.com/${author.username}/status/${id}`;
+
   return (
     <TweetInnerBox>
       <TweetLink href={tweetLink}>
@@ -27,7 +29,6 @@ const TweetInnerBox = styled.li`
 
 const TweetLink = styled.a`
   ${fullWidthAndHeight}
-
   text-decoration: none;
   color: inherit;
 `;

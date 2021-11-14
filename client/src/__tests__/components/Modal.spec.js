@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer';
 import Modal from '../../components/hocs/Modal';
 import theme from '../../styles/theme';
 
-describe('test Modal', () => {
+describe('Modal component test', () => {
   const spySelector = jest.spyOn(redux, 'useSelector');
   spySelector.mockReturnValueOnce(false).mockReturnValueOnce(true);
 
@@ -27,7 +27,7 @@ describe('test Modal', () => {
     </redux.Provider>,
   );
 
-  it('', () => {
+  it('test modal feature', () => {
     renderer.act(() => {
       component.root.findByProps({ modalMessage: false }).props.onClick();
     });

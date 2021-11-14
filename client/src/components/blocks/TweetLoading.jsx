@@ -5,9 +5,10 @@ import styled from 'styled-components';
 
 import useLoadingText from '../../hooks/useLoadingText';
 import useIntersect from '../../hooks/useIntersect';
-import { center } from '../../styles/mixin';
 
 import { openTweetStream } from '../../features/tweet/slices';
+
+import { center } from '../../styles/mixin';
 
 export default function TweetLoading() {
   const dispatch = useDispatch();

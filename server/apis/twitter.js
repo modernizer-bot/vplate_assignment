@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import needle from 'needle';
 import { TWITTER_STREAM_URL, TWITTER_STREAM_RULE_URL } from '../constants/url';
 

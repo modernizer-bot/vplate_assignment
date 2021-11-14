@@ -12,7 +12,6 @@ import {
 } from 'redux-saga/effects';
 import { io } from 'socket.io-client';
 
-import { TWEET_SERVER_URL } from '../../constant/tweet';
 import { openModal } from '../modal/slices';
 import { selectKeyword, selectTweetList } from './selectors';
 import {
@@ -22,6 +21,8 @@ import {
   addTweet,
   changeKeyword,
 } from './slices';
+
+import { TWEET_SERVER_URL, TWEET_STREAM_TIMEOUT } from '../../constant/tweet';
 
 export const connect = () => {
   const socket = io(TWEET_SERVER_URL);
@@ -50,7 +51,7 @@ function subscribe(socket) {
 
 function* watchNoResult(socket) {
   const prevTweets = yield select(selectTweetList);
-  yield delay(15000);
+  yield delay(TWEET_STREAM_TIMEOUT);
 
   const nextTweets = yield select(selectTweetList);
 
